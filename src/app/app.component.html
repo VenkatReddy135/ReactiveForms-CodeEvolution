@@ -1,0 +1,38 @@
+<div class="container">
+  <h1 style="color:green;text-align: center;">Reactive Forms</h1>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit(registrationForm.value);registrationForm.reset()" >
+    <!-- {{registrationForm.value|json}} -->
+    <div class="form-group">
+<label style="color:brown">UserName</label>
+<input type="text" formControlName="username" [class.is-invalid]="f.username.invalid && f.username.touched" 
+class="form-control">
+<small class="text-danger" [class.d-none]="f.username.valid||f.username.untouched">UserName is Required</small>
+    </div>
+    <div class="form-group">
+      <label style="color:brown">Password</label>
+      <input type="password"  [class.is-invalid]="f.password.invalid && f.password.touched" formControlName="password" class="form-control">
+      <small class="text-danger" [class.d-none]="f.password.valid||f.password.untouched">Password is Required</small>
+    </div>
+    <div class="form-group">
+      <label style="color:brown">Confirm-Password</label>
+      <input type="password" pattern={{f.password.value}}  [class.is-invalid]="f.Cpassword.invalid && f.Cpassword.touched" formControlName="Cpassword" class="form-control">
+      <div *ngIf="(f.Cpassword.touched||submitted) && f.Cpassword.invalid">
+        <small  class="text-danger" *ngIf="f.Cpassword.errors.valid">Cpassword is required</small>
+        <small  class="text-danger" *ngIf="f.Cpassword.errors.pattern">password and confirm pattern should be same</small>
+      </div>
+    
+    </div>
+    <!-- <div formGroupName="address">
+      <div class="form-group">
+        <label>city</label>
+        <input type="text" class="form-control" formControlName="city">
+      </div>
+      <div class="form-group">
+      <label>place</label>
+      <input type="text" class="form-control" formControlName="place">
+      </div>
+    </div>
+    <!-- <button style="margin-left: 20px;" (click)="loadData()" class="btn btn-success">LoadData</button> -->
+    <button [disabled]="registrationForm.invalid" class="btn btn-danger">submit</button>
+  </form>
+</div>
